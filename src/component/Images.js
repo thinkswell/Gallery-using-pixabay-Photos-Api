@@ -8,10 +8,11 @@ function Images() {
 
   const fetchImages = async () => {
     const response = await fetch(
-      `https://pixabay.com/api/?key=${key}&q=beautiful&page=${page}`
+      `https://pixabay.com/api/?key=${key}&q=cute&page=${page}`
     );
     const data = await response.json();
     setImages(data.hits);
+    console.log(data.hits);
     window.scrollTo(0, 0);
   };
 
@@ -19,29 +20,40 @@ function Images() {
     fetchImages();
   }, [page]);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     if ((e === -1 && page > 0) || e === 1) setPage(page + e);
   };
 
   return (
-    <section className="body">
-      <ul className="imageList">
-        {images.map(image => (
-          <li key={image.id}>
+    <React.Fragment>
+      <section className="body">
+        {images.map((image) => (
+          <div
+            key={image.id}
+            className={`${
+              image.id % 8 === 0
+                ? "hori"
+                : image.id % 6 === 0
+                ? "vert"
+                : image.id % 4 === 0
+                ? "big"
+                : ""
+            }`}
+          >
             <img src={image.webformatURL} alt={image.user_id} />
-          </li>
+          </div>
         ))}
-      </ul>
-
+      </section>
       <div className="control">
-        <div className="left" onClick={() => handleClick(-1)}>
-          Prev
-        </div>
-        <div className="right" onClick={() => handleClick(1)}>
-          Next
-        </div>
+        <button className="btn" onClick={() => handleClick(-1)}>
+          {`Page ${page > 1 ? page - 1 : "N/A"}`}
+        </button>
+        <div className="mid"> - {`Page ${page}`} - </div>
+        <button className="btn" onClick={() => handleClick(1)}>
+          {`Page ${page + 1}`}
+        </button>
       </div>
-    </section>
+    </React.Fragment>
   );
 }
 
