@@ -28,6 +28,20 @@ html {
   grid-auto-flow: dense;
 }
 
+@media only screen and (max-width: 600px) {
+  .body {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-auto-rows: 15rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .body {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-auto-rows: 15rem;
+  }
+}
+
 .body > div {
   display: flex;
   justify-content: center;
@@ -51,6 +65,24 @@ div > img {
 .big {
   grid-row: span 2;
   grid-column: span 2;
+}
+
+@media only screen and (max-width: 500px) {
+  .body {
+    grid-gap: 5px;
+  }
+  .hori {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+  .vert {
+    grid-row: span 2;
+    grid-column: span 1;
+  }
+  .big {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
 }
 
 .control {
